@@ -20,7 +20,7 @@ struct Data_S data;
 void setup(struct Handles_S *handles){
 
 	// INICIALIZACIÓN DE PMU:
-	HAL_GPIO_WritePin(EN_GPIO_Port,EN_Pin,1); // PMU es PA5 que hemos definido como EN
+	HAL_GPIO_WritePin(EN_GPIO_Port,EN_Pin,GPIO_PIN_RESET); // PMU es PA5 que hemos definido como EN (reset = 0 = encendre)
 
 	//=========================== Potenciometro ====================================
 	// Solo debemos de ejecutar este codigo una unica vez al inicio del programa.
@@ -71,33 +71,24 @@ void loop(void){
 	                // Leemos la configuracion que se nos ha enviado en el mensaje y
 	                // la guardamos en la variable cvConfiguration
 					cvConfiguration = MASB_COMM_S_getCvConfiguration();
-
-					HAL_TIM_Base_Start_IT(&htim3);
-
 					__NOP();
-
 					break;
+
 
 				case START_CA_MEAS:
 					caConfiguration = MASB_COMM_S_getCaConfiguration();
-
-					HAL_TIM_Base_Start_IT(&htim3);
-
 					__NOP();
-
 					break;
+
 
 				case STOP_MEAS:
-
 					__NOP();
-
 					break;
+
 
 				default:
 					// no se que poner
-
 					MASB_COMM_S_sendData(data);
-
 					break;
 			}
 
