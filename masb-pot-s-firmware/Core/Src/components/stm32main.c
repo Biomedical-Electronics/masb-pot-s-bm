@@ -72,7 +72,6 @@ void loop(void){
 	                // la guardamos en la variable cvConfiguration
 					cvConfiguration = MASB_COMM_S_getCvConfiguration();
 
-					HAL_TIM_Base_Start_IT(&htim3);
 
 					__NOP();
 
@@ -81,7 +80,6 @@ void loop(void){
 				case START_CA_MEAS:
 					caConfiguration = MASB_COMM_S_getCaConfiguration();
 
-					HAL_TIM_Base_Start_IT(&htim3);
 
 					__NOP();
 
