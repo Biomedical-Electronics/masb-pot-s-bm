@@ -40,6 +40,7 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 	double scanRate = cvConfiguration.scanRate;
 
 	double ts_CV = eStep/scanRate;
+	
 
 	__HAL_TIM_SET_AUTORELOAD(&htim3, ts_CV * 10); // Fijamos el periodo.
 	// estamos trabajando a 10 kHz --> TIM3 preescaler 8399 y counter period de 10000
@@ -74,9 +75,31 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 
 			counter_CV = counter_CV + ts_CV;
 			point_CV = point_CV + 1;
-
+			
+		}
+		// crec que es un bucle, perque hi ha diverses condicions que tornen a aixo:
+		while (Vcell_CV == vObjetivo) {
+			
+			if (vObjetivo == cvConfiguration.eVertex1){
+				vObjetivo = cvConfiguration.eVertex2;
+			}
+			
+			else {
+				if (vObjetivo == cvConfiguration.eVertex2){
+					vObjetivo = cvConfiguration.eBegin;
+				}
+				else {
+					//(Aquí es on posem lo del ultim cicle que no tinc clar!!!)
+				}
+			}
+		}	
+		
+		if (Vcell_CV + eStep > vObjetivo){
+			Vcell_CV = vObjetivo; 
+		}
+		else {
+			Vcell_CV = Vcell_CV + eStep; // Això no estic gens segura de si és així.
 		}
 	}
-
 }
 
