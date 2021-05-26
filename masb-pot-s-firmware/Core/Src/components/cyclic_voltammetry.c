@@ -58,7 +58,19 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 	uint32_t counter_CV = 0;
 	uint32_t point_CV = 0;
 
-	while (counter_CV <= ts_CV){
+	while cyclos maspequeno que cvconfig ,
+		if tomarpuntocv es true ,
+
+
+		    cyclos mas 1
+			tomarpuntocv igual a false
+		,
+	,
+
+
+	// si els cicles son < que els cicles de la configuracio seguim dins el bucle
+	//abans hauriem de fer una variable de cicles = 0
+	while (counter_CV < ts_CV){ //canviar counter per cicles
 		if (tomarPunto_CV == FALSE){
 			HAL_ADC_Start(&hadc1); //iniciamos conversion
 			Vcell_ADC_CV = HAL_ADC_GetValue(&hadc1);
@@ -73,7 +85,7 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 
 			MASB_COMM_S_sendData(data);
 
-			counter_CV = counter_CV + ts_CV;
+
 			point_CV = point_CV + 1;
 			
 		}
@@ -89,6 +101,7 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 					vObjetivo = cvConfiguration.eBegin;
 				}
 				else {
+					cycle = cycle + 1;
 					//(Aquí es on posem lo del ultim cicle que no tinc clar!!!)
 				}
 			}
