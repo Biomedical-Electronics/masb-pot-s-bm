@@ -41,6 +41,7 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 
 	double ts_CV = eStep/scanRate;
 	
+	
 
 	__HAL_TIM_SET_AUTORELOAD(&htim3, ts_CV * 10); // Fijamos el periodo.
 	// estamos trabajando a 10 kHz --> TIM3 preescaler 8399 y counter period de 10000
@@ -57,62 +58,59 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 
 	uint32_t counter_CV = 0;
 	uint32_t point_CV = 0;
+	uint32_t cycles = 0;
 
-	while cyclos maspequeno que cvconfig ,
-		if tomarpuntocv es true ,
+	while (cycles < cvConfiguration.cycles){
+		// si els cicles son < que els cicles de la configuracio seguim dins el bucle
+		//abans hauriem de fer una variable de cicles = 0
+		while (counter_CV < ts_CV){ //canviar counter per cicles
+			if (tomarPunto_CV == TRUE){
+				HAL_ADC_Start(&hadc1); //iniciamos conversion
+				Vcell_ADC_CV = HAL_ADC_GetValue(&hadc1);
+				Vcell_CV = (double)(1.65-Vcell_ADC_CV)*2;
+				Icell_CV = (double)((Vcell_ADC_CV - 1.65)*2)/RTIA;
 
+				struct Data_S data;
+				data.current = Icell_CV;
+				data.point = point_CV;
+				data.timeMs = counter_CV;
+				data.voltage = Vcell_CV;
 
-		    cyclos mas 1
-			tomarpuntocv igual a false
-		,
-	,
-
-
-	// si els cicles son < que els cicles de la configuracio seguim dins el bucle
-	//abans hauriem de fer una variable de cicles = 0
-	while (counter_CV < ts_CV){ //canviar counter per cicles
-		if (tomarPunto_CV == FALSE){
-			HAL_ADC_Start(&hadc1); //iniciamos conversion
-			Vcell_ADC_CV = HAL_ADC_GetValue(&hadc1);
-			Vcell_CV = (double)(1.65-Vcell_ADC_CV)*2;
-			Icell_CV = (double)((Vcell_ADC_CV - 1.65)*2)/RTIA;
-
-			struct Data_S data;
-			data.current = Icell_CV;
-			data.point = point_CV;
-			data.timeMs = counter_CV;
-			data.voltage = Vcell_CV;
-
-			MASB_COMM_S_sendData(data);
+				MASB_COMM_S_sendData(data);
 
 
-			point_CV = point_CV + 1;
-			
-		}
-		// crec que es un bucle, perque hi ha diverses condicions que tornen a aixo:
-		while (Vcell_CV == vObjetivo) {
-			
-			if (vObjetivo == cvConfiguration.eVertex1){
-				vObjetivo = cvConfiguration.eVertex2;
+				point_CV = point_CV + 1;
+				
 			}
-			
-			else {
-				if (vObjetivo == cvConfiguration.eVertex2){
-					vObjetivo = cvConfiguration.eBegin;
+			while (Vcell_CV == vObjetivo) {
+				
+				if (vObjetivo == cvConfiguration.eVertex1){
+					vObjetivo = cvConfiguration.eVertex2;
 				}
+				
 				else {
-					cycle = cycle + 1;
-					//(Aquí es on posem lo del ultim cicle que no tinc clar!!!)
+					if (vObjetivo == cvConfiguration.eVertex2){
+						vObjetivo = cvConfiguration.eBegin;
+					}
+					else {
+						cycle = cycle + 1;
+						tomarPunto_CV == FALSE;
+						//(Aquí es on posem lo del ultim cicle que no tinc clar!!!)
+					}
 				}
+			}	
+			
+			if (Vcell_CV + eStep > vObjetivo){
+				Vcell_CV = vObjetivo; 
 			}
-		}	
+			else {
+				Vcell_CV = Vcell_CV + eStep; // Això no estic gens segura de si és així.
+			}
+		}
 		
-		if (Vcell_CV + eStep > vObjetivo){
-			Vcell_CV = vObjetivo; 
-		}
-		else {
-			Vcell_CV = Vcell_CV + eStep; // Això no estic gens segura de si és així.
-		}
 	}
+	// Abrir relé
+	HAL_GPIO_WritePin(RELAY_GPIO_Port, RELAY_Pin, GPIO_PIN_RESET); 
+
 }
 
