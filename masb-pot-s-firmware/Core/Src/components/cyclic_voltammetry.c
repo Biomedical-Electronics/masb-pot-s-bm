@@ -22,7 +22,7 @@ static I2C_HandleTypeDef *hi2c1;
 extern TIM_HandleTypeDef htim3;
 
 
-_Bool tomarPunto_CV = FALSE;
+_Bool tomarPunto_CV = TRUE;
 double RTIA = 10000; // definimos R_tia de 10 kohm
 
 
@@ -81,31 +81,33 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 
 				point_CV = point_CV + 1;
 				
-			}
-			while (Vcell_CV == vObjetivo) {
-				
-				if (vObjetivo == cvConfiguration.eVertex1){
-					vObjetivo = cvConfiguration.eVertex2;
-				}
-				
-				else {
-					if (vObjetivo == cvConfiguration.eVertex2){
-						vObjetivo = cvConfiguration.eBegin;
+				while (Vcell_CV == vObjetivo) {
+
+					if (vObjetivo == cvConfiguration.eVertex1){
+						vObjetivo = cvConfiguration.eVertex2;
 					}
+
 					else {
-						cycle = cycle + 1;
-						tomarPunto_CV == FALSE;
-						//(Aquí es on posem lo del ultim cicle que no tinc clar!!!)
+						if (vObjetivo == cvConfiguration.eVertex2){
+							vObjetivo = cvConfiguration.eBegin;
+						}
+						else {
+							cycles = cycles + 1;
+							tomarPunto_CV == FALSE;
+							//(Aquí es on posem lo del ultim cicle que no tinc clar!!!)
+						}
 					}
 				}
-			}	
+
+				if (Vcell_CV + eStep > vObjetivo){
+					Vcell_CV = vObjetivo;
+				}
+				else {
+					Vcell_CV = Vcell_CV + eStep; // Això no estic gens segura de si és així.
+				}
+
+			}
 			
-			if (Vcell_CV + eStep > vObjetivo){
-				Vcell_CV = vObjetivo; 
-			}
-			else {
-				Vcell_CV = Vcell_CV + eStep; // Això no estic gens segura de si és així.
-			}
 		}
 		
 	}
