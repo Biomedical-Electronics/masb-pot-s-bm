@@ -10,15 +10,8 @@
 
 #include "stm32f4xx_hal.h"
 
-struct Handles_S {
-	UART_HandleTypeDef *huart;
-	ADC_HandleTypeDef *hadc1;
-	I2C_HandleTypeDef *hi2c1;
-	TIM_HandleTypeDef *htim3;
-};
-
 // Prototypes.
-void setup(struct Handles_S *handles);
+void setup(void);
 void loop(void);
 
 #endif /* INC_COMPONENTS_STM32MAIN_H_ */

@@ -22,8 +22,8 @@ static I2C_HandleTypeDef *hi2c1;
 extern TIM_HandleTypeDef htim3;
 
 
-_Bool tomarPunto_CV = TRUE;
-double RTIA = 10000; // definimos R_tia de 10 kohm
+extern _Bool tomarPunto;
+static double RTIA = 50000; // definimos R_tia de 10 kohm
 
 
 void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
@@ -64,8 +64,8 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 		// si els cicles son < que els cicles de la configuracio seguim dins el bucle
 		//abans hauriem de fer una variable de cicles = 0
 		while (counter_CV < ts_CV){ //canviar counter per cicles
-			if (tomarPunto_CV == TRUE){
-				tomarPunto_CV = FALSE;
+			if (tomarPunto == TRUE){
+				tomarPunto = FALSE;
 				HAL_ADC_Start(&hadc1); //iniciamos conversion
 				Vcell_ADC_CV = HAL_ADC_GetValue(&hadc1);
 				Vcell_CV = (double)(1.65-Vcell_ADC_CV)*2;
