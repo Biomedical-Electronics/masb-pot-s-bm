@@ -71,12 +71,22 @@ void loop(void){
 	                // Leemos la configuracion que se nos ha enviado en el mensaje y
 	                // la guardamos en la variable cvConfiguration
 					cvConfiguration = MASB_COMM_S_getCvConfiguration();
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> develop
 					__NOP();
 					break;
 
 
 				case START_CA_MEAS:
 					caConfiguration = MASB_COMM_S_getCaConfiguration();
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> develop
 					__NOP();
 					break;
 
