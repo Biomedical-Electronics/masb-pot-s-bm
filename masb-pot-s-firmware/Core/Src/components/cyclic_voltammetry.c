@@ -28,7 +28,8 @@ static double RTIA = 50000; // definimos R_tia de 10 kohm
 
 void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 	double Vcell_preADC_CV = cvConfiguration.eBegin;
-	double V_DAC_CV = (1.65 - Vcell_preADC_CV/2.0);
+	// double V_DAC_CV = (1.65 - Vcell_preADC_CV/2.0);
+	double V_DAC_CV = calculateDacOutputVoltage(Vcell_preADC_CV);
 	MCP4725_SetOutputVoltage(hdac, V_DAC_CV);
 
 	double vObjetivo = cvConfiguration.eVertex1;
@@ -51,10 +52,19 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 	HAL_TIM_Base_Start_IT(&htim3);
 
 	uint32_t Vcell_ADC_CV = 0;
+	uint32_t Icell_ADC_CV = 0;
+
 	HAL_ADC_Start(&hadc1); //iniciamos conversion
 	Vcell_ADC_CV = HAL_ADC_GetValue(&hadc1);
-	double Vcell_CV = (double)(1.65-Vcell_ADC_CV)*2;
-	double Icell_CV = (double)((Vcell_ADC_CV - 1.65)*2)/RTIA;
+	// double Vcell_CV = (double)(1.65-Vcell_ADC_CV)*2;
+	double Vcell_CV = calculateDacOutputVoltage(Vcell_ADC_CV);
+
+	// double Icell_CV = (double)((Vcell_ADC_CV - 1.65)*2)/RTIA;
+	HAL_ADC_Start(&hadc1); //iniciamos conversion
+	HAL_ADC_PollForConversion(&hadc1, 100);
+	Icell_ADC_CV = HAL_ADC_GetValue(&hadc1);
+
+	double Icell_CV = calculateIcellCurrent(Icell_ADC_CV);
 
 	uint32_t counter_CV = 0;
 	uint32_t point_CV = 0;
@@ -68,8 +78,10 @@ void CV_Start_Meas(struct CV_Configuration_S cvConfiguration){
 				tomarPunto = FALSE;
 				HAL_ADC_Start(&hadc1); //iniciamos conversion
 				Vcell_ADC_CV = HAL_ADC_GetValue(&hadc1);
-				Vcell_CV = (double)(1.65-Vcell_ADC_CV)*2;
-				Icell_CV = (double)((Vcell_ADC_CV - 1.65)*2)/RTIA;
+				Icell_ADC_CV = HAL_ADC_GetValue(&hadc1);
+
+				Vcell_CV = calculateDacOutputVoltage(Vcell_ADC_CV);
+				Icell_CV = calculateIcellCurrent(Icell_ADC_CV);
 
 				struct Data_S data;
 				data.current = Icell_CV;
