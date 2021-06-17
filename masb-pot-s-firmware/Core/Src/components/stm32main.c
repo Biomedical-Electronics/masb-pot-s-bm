@@ -78,12 +78,16 @@ void loop(void){
 					cvConfiguration = MASB_COMM_S_getCvConfiguration();
 					CV_Start_Meas(cvConfiguration);
 
+					__NOP();
+
 					break;
 
 
 				case START_CA_MEAS:
 					caConfiguration = MASB_COMM_S_getCaConfiguration();
 					CA_Start_Meas(caConfiguration);
+
+					__NOP();
 
 					break;
 
