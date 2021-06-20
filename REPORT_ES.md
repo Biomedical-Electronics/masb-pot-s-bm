@@ -6,6 +6,22 @@ Este proyecto ha consistido en la configuración y programación de un microcont
 
 Las autoras de este trabajo son Bruna Martín Català y Maria Mor Basart (ver *Figura 1* y *Figura 2*).
 
+<p align="center">
+<a href="Docs/assets/imgs/MARTIN_CATALA_BRUNA.jpg">
+<img src="Docs/assets/imgs/MARTIN_CATALA_BRUNA.jpg" alt="Fotografía de una de las autoras" width=250 />
+</a>
+</p>
+
+***Figura 1.*** Bruna Martín Català
+
+<p align="center">
+<a href="Docs/assets/imgs/MOR_BASART_MARIA.jpg">
+<img src="Docs/assets/imgs/MOR_BASART_MARIA.jpg" alt="Fotografía de una de las autoras" width=250 />
+</a>
+</p>
+
+***Figura 2.*** Maria Mor Basart
+
 
 
 ## Tabla de contenidos 
@@ -48,8 +64,6 @@ El potenciostato usado para este proyecto puede verse representado en el siguien
 <img src="Docs/assets/imgs/potenciometro.jpeg" alt="Esquema del potenciometro usado" width=500 />
 </a>
 </p>
-
-
 **_Figura 3._** Esquema del potenciostato usado para este proyecto.
 
 ### Voltametría cíclica
@@ -64,11 +78,13 @@ Para ello se requiere de tres electrodos:
 
 Esta medida se realiza mediante lo que denomina como barrido triangular, debido a que el potencial entre el WE y el RE va variando hasta alcanzar uno establecido y luego cambia de dirección, y así un número determinado de ciclos. A continuación se muestra un ejemplo de gráfica obtenido de una voltametría cíclica de la comparación de la redisolución de Sn en los electrodos modificados de Pt/Sn (ver *Figura 4*). 
 
+<p align="center">
+<a href="Docs/assets/imgs/volta_exemple.jpeg">
+<img src="Docs/assets/imgs/volta_exemple.jpeg" alt="Ejemplo voltametría cíclica" width=500 />
+</a>
+</p>
 
-
-
-
-
+**_Figura 4._** Ejemplificación de los resultados obtenidos en una voltametría cíclica.
 
 ### Cronoamperometría 
 
@@ -78,9 +94,13 @@ El electrodo de trabajo, el cual está en contacto con el electrolito, se somete
 
 La siguiente imagen muestra un ejemplo de una gráfica de una cronoamperometría en una solución de H 2 SO 4 /ACN/CuSO 4 (ver *Figura 5*).
 
+<p align="center">
+<a href="Docs/assets/imgs/crono_exemple.jpeg">
+<img src="Docs/assets/imgs/crono_exemple.jpeg" alt="Ejemplo cronoamperometría" width=500 />
+</a>
+</p>
 
-
-
+**_Figura 5._** Ejemplificación de los resultados obtenidos en una cronoamperometría.
 
 Así pues, estas dos medidas electroquímicas son las que realizaremos sobre dos muestras de *ferricianuro de potasio* a concentraciones de 1mM y 5mM de *cloruro de potasio*. 
 
@@ -121,11 +141,11 @@ Los objetivos de este proyecto son los siguientes:
 
 En la siguiente figura, podemos observar el flujo realizado que corresponde a la operativa del microcontrolador a la hora de realizar una voltametría cíclica. 
 
-
-
-
-
-
+<p align="center">
+<a href="Docs/assets/imgs/voltadiagram.png">
+<img src="Docs/assets/imgs/voltadiagram.png" alt="Workflow voltametría cíclica" />
+</a>
+</p>
 
 **_Figura 6._** Diagrama de flujo seguido para programar el microcontrolador cuando se realiza una voltametría cíclica.
 
@@ -166,9 +186,11 @@ Finalmente, cuando el *timer* llegue al `measurement_time`, ya habremos tomado t
 
 A continuación se muestra un esquema del flujo de trabajo previamente explicado para un mayor entendimiento (ver Figura 7) .
 
-
-
-
+<p align="center">
+<a href="Docs/assets/imgs/cronodiagram.jpeg">
+<img src="Docs/assets/imgs/cronodiagram.jpeg" alt="Cronoamperometría workflow" />
+</a>
+</p>
 
 ***Figura 7***. Diagrama de flujo seguido para programar el microcontrolador cuando se realiza una cronoamperometría.
 
@@ -180,26 +202,15 @@ En esta sección se muestran los resultados obtenidos al testear el proyecto en 
 
 Para ello, fuimos al laboratorio de Ingeniería Biomédica de la facultad de física de la Universidad de Barcelona, donde se nos cedió el potenciostato, un sensor y las disoluciones, y donde pudimos ensamblarlo todo (ver *Figura 8*).
 
-
-
-
+<p align="center">
+<a href="Docs/assets/imgs/device2.jpeg">
+<img src="Docs/assets/imgs/device2.jpeg" alt="Potentiostat with samples" width=300/>
+</a>
+</p>
 
 ***Figura 8.*** Potenciostato conectado con la muestra de la disolución en el sensor
 
-
-
-Primero procedimos a realizar una voltametría cíclica usando el programa viSens-S, estableciendo los siguientes parámetros:
-
-- E begin (V):
-- E vertex 1 (V):
-- E vertex 2 (V):
-- Cycles:
-- Scan rate (V/s):
-- E step (V):
-
-Por desgracia, la voltametría cíclica no funcionó. Solo se logró tomar una medida, lo cual es insuficiente. 
-
-
+Primero procedimos a realizar una voltametría cíclica usando el programa viSens-S. Por desgracia, la voltametría cíclica no funcionó. Solo se logró tomar una medida, lo cual es insuficiente. 
 
 Seguidamente se realizó la cronoamperometría con el mismo programa y los siguientes valores:
 
@@ -209,17 +220,21 @@ Seguidamente se realizó la cronoamperometría con el mismo programa y los sigui
 
 En esta ocasión sí que se logró visualizar los resultados, aunque para el caso de la muestra de concentración de un 1 mM de cloruro de potasio, los valores de corriente dieron inversos, como se puede ver en la siguiente imagen (ver *Figura 9*).
 
-
-
-
+<p align="center">
+<a href="Docs/assets/imgs/excel_1mol.jpeg">
+<img src="Docs/assets/imgs/excel_1mol.jpeg" alt="1M results" width=600/>
+</a>
+</p>
 
 ***Figura 9***. Cronoamperometría con disolución de 1 mM
 
-
-
 En el caso de la siguiente muestra, los resultados son satisfactorios, como se puede observar en la siguiente gráfica (ver *Figura 10*).
 
-
+<p align="center">
+<a href="Docs/assets/imgs/excel_5mol.jpeg">
+<img src="Docs/assets/imgs/excel_5mol.jpeg" alt="5mM results" width=600/>
+</a>
+</p>
 
 ***Figura 10***. Cronoamperometría con disolución de 5 mM
 
@@ -231,9 +246,18 @@ El potenciostato es un instrumento muy usado en experimentos electroquímicos y 
 
 Considerando que el resto de prácticas trataban los diferentes aspectos de programar un microcontrolador de modo individual y esta práctica lo hace integrando una gran mayoría de ellas, este proyecto ha supuesto varias dificultades y complicaciones. Sobre todo al crear diferentes archivos con códigos para cada una de las funciones y hacerlos funcionar conjuntamente y también en el momento de compartir y modificar los archivos compartidos con la compañera usando github. 
 
-A nivel de asignatura, 
+A nivel de asignatura, consideramos que los conocimientos aprendidos nos van a resultar muy útiles a nivel laboral, sobre todo los referentes al uso de Git i GitHub para realizar proyectos de código con futuros compañeros de trabajo. A demás, también nos es útil haber tenido esta primera toma de contacto con la programación de microcontroladores que, aunque nuestro nivel de programación no es muy elevado, nos ha permitido introducirnos en esta área útil para entrar en el campo de sensores médicos. 
 
 
 
 ## Referencias
 
+[1] [https://es.wikipedia.org/wiki/Potenciostato](https://www.google.com/url?q=https://es.wikipedia.org/wiki/Potenciostato&sa=D&source=editors&ust=1624208705621000&usg=AOvVaw05UpdH_ahg-zy-24YGOW2n)
+
+[2] [https://github.com/Biomedical-Electronics/masb-pot-s-bm](https://www.google.com/url?q=https://github.com/Biomedical-Electronics/masb-pot-s-bm&sa=D&source=editors&ust=1624208714921000&usg=AOvVaw0hWntd790pF9gZvt45flmM)
+
+[3] [https://es.wikipedia.org/wiki/Voltamperometr%C3%ADa#Sistema_de_tres_electrodos](https://www.google.com/url?q=https://es.wikipedia.org/wiki/Voltamperometr%C3%ADa%23Sistema_de_tres_electrodos&sa=D&source=editors&ust=1624211407232000&usg=AOvVaw0lqDA2zvza8hxYA-c0lx4b)
+
+[4] [https://upcommons.upc.edu/bitstream/handle/2099.1/4861/06_Annexos.pdf?sequence=7&isAllowed=y](https://www.google.com/url?q=https://upcommons.upc.edu/bitstream/handle/2099.1/4861/06_Annexos.pdf?sequence%3D7%26isAllowed%3Dy&sa=D&source=editors&ust=1624211803222000&usg=AOvVaw1ESU1PXWi45ylYpIO4lmqh)
+
+[5] [https://openwebinars.net/blog/que-es-git-y-para-que-sirve/](https://www.google.com/url?q=https://openwebinars.net/blog/que-es-git-y-para-que-sirve/&sa=D&source=editors&ust=1624217383894000&usg=AOvVaw0EpRCnOOUK7OXn_9Q4WeWS)

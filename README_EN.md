@@ -4,6 +4,22 @@
 
 This project has consisted of the configuration and programming of a microcontroller to perform electrochemical measurements, such as chronoamperometry and cyclic voltammetry automatically by means of a potentiostat. It has been developed with the aim of achieving and consolidating all the knowledge seen and worked in the subject of Microcontrollers for Biomedical Applications and Systems. The authors of this work are Bruna Martín Català and Maria Mor Basart (see Figure 1 and Figure 2).
 
+<p align="center">
+<a href="Docs/assets/imgs/MARTIN_CATALA_BRUNA.jpg">
+<img src="Docs/assets/imgs/MARTIN_CATALA_BRUNA.jpg" alt="Fotografía de una de las autoras" width=250 />
+</a>
+</p>
+
+***Figure 1.*** Bruna Martín Català
+
+<p align="center">
+<a href="Docs/assets/imgs/MOR_BASART_MARIA.jpg">
+<img src="Docs/assets/imgs/MOR_BASART_MARIA.jpg" alt="Fotografía de una de las autoras" width=250 />
+</a>
+</p>
+
+***Figure 2.*** Maria Mor Basart
+
 
 
 ## Table of Contents 
@@ -27,7 +43,13 @@ This project has consisted of the configuration and programming of a microcontro
 
 This project is based on the programming of a potentiostat consisting of a front-end and a back-end based on the Evaluation Board (EVB) NUCLEO F401RE from STMicroelectronics. A potentiostat is an electronic device generally consisting of three electrodes and is used for electrochemical measurements and experiments. The system consists such that the working electrode must be maintained at a constant potential with respect to the reference electrode by adjusting the current at the auxiliary electrode [1]. Thus, the potentiostat must bias the electrochemical cell to a voltage Vcell and read the current Icell flowing through it. To set the Vcell voltage, we have the DAC MCP4725, whose I2C address is `1100000`. This model can generate an output voltage from 0 to 4 V, but a stage has been added to convert this signal to a bipolar signal from - 4 to 4 V to be able to bias to both positive and negative voltages [2]. The potentiostat used for this project can be seen represented in the following schematic (see Figure 3). 
 
+<p align="center">
+<a href="Docs/assets/imgs/potenciometro.jpeg">
+<img src="Docs/assets/imgs/potenciometro.jpeg" alt="Esquema del potenciometro usado" width=500 />
+</a>
+</p>
 
+**_Figure 3._** Potentiostat used scheme.
 
 ### Cyclic Voltammetry 
 
@@ -35,17 +57,25 @@ This project is based on the programming of a potentiostat consisting of a front
 The working electrode (WE): it is in contact with the analyte and induces the potential. The reference electrode (RE): has a known potential so that the potential difference between it and the WE can be measured.Auxiliary electrode (CE): supplies the necessary current to maintain a constant WE. 
 This measurement is made by means of what is called a triangular sweep because the potential between the WE and the RE varies until it reaches an established one and then changes direction, and so on for a certain number of cycles. Below is an example of a graph obtained from cyclic voltammetry of the comparison of Sn redissolution in the modified Pt/Sn electrodes (see Figure 4). 
 
+<p align="center">
+<a href="Docs/assets/imgs/volta_exemple.jpeg">
+<img src="Docs/assets/imgs/volta_exemple.jpeg" alt="Ejemplo voltametría cíclica" width=500 />
+</a>
+</p>
 
-
-
+**_Figure 4._** Exemplification of the results obtained in a cyclic voltammetry.
 
 ### Chronoamperometry 
 
 *Chronoamperometry* (CA) consists of the study of the variation of the current response with time as a function of the control of a potentiostat. The working electrode, which is in contact with the electrolyte, is subjected to a constant change of potential from an initial to a final value for a given time [4]. The following image shows an example of a graph of a chronoamperometry in a H 2 SO 4 /ACN/CuSO 4 solution (see Figure 5).
 
+<p align="center">
+<a href="Docs/assets/imgs/crono_exemple.jpeg">
+<img src="Docs/assets/imgs/crono_exemple.jpeg" alt="Ejemplo cronoamperometría" width=500 />
+</a>
+</p>
 
-
-
+**_Figure 5._** Exemplification of the results obtained in a cronoamperometry.
 
 Thus, these two electrochemical measurements are the ones we will perform on two samples of *potassium ferricyanide* at concentrations of 1 mM and 5 mM *potassium chloride*. 
 
@@ -103,7 +133,13 @@ What we do from now on is a triangular sweep. We will start by applying an `eBeg
 
 The following image shows the aforementioned process (see Figure 6).
 
+<p align="center">
+<a href="Docs/assets/imgs/voltadiagram.png">
+<img src="Docs/assets/imgs/voltadiagram.png" alt="Workflow voltametría cíclica" />
+</a>
+</p>
 
+***Figure 6***. Flowchart followed to program the microcontroller when performing cyclic voltammetry.
 
 
 
@@ -127,7 +163,11 @@ Finally, when the *timer* reaches the `measurement_time`, we will have taken all
 
 Below is a schematic of the previously explained work flow for a better understanding (see *Figure* *7*).
 
-
+<p align="center">
+<a href="Docs/assets/imgs/cronodiagram.jpeg">
+<img src="Docs/assets/imgs/cronodiagram.jpeg" alt="Cronoamperometría workflow" />
+</a>
+</p>
 
 ***Figure 7***. Flowchart followed to program the microcontroller when performing chronoamperometry.
 
@@ -139,26 +179,15 @@ This section shows the results obtained when testing the project in the potentio
 
 For this purpose, we went to the Biomedical Engineering laboratory of the physics faculty of the University of Barcelona, where we were given the potentiostat, a sensor and the solutions, and where we were able to assemble everything (see *Figure 8*).
 
-
-
-
+<p align="center">
+<a href="Docs/assets/imgs/device2.jpeg">
+<img src="Docs/assets/imgs/device2.jpeg" alt="Potentiostat with samples" width=300/>
+</a>
+</p>
 
 ***Figure 8.*** Potentiostat connected with the sample of the solution in the sensor.
 
-
-
-We first proceeded to perform cyclic voltammetry using the viSens-S program, setting the following parameters:
-
-- E begin (V):
-- E vertex 1 (V):
-- E vertex 2 (V):
-- Cycles:
-- Scan rate (V/s):
-- E step (V):
-
-Unfortunately, cyclic voltammetry did not work. Only one measurement was taken, which is insufficient. 
-
-
+We first proceeded to perform cyclic voltammetry using the viSens-S program. However, the cyclic voltammetry did not work. Only the first measurement was taken, which is insufficient. 
 
 Next, chronoamperometry was performed with the same program and the following values:
 
@@ -168,17 +197,21 @@ Next, chronoamperometry was performed with the same program and the following va
 
 On this occasion it was possible to visualize the results, although in the case of the 1 mM potassium chloride concentration sample, the current values were inverted, as can be seen in the following image (see *Figure 9*).
 
-
-
-
+<p align="center">
+<a href="Docs/assets/imgs/excel_1mol.jpeg">
+<img src="Docs/assets/imgs/excel_1mol.jpeg" alt="1M results" width=600/>
+</a>
+</p>
 
 ***Figure 9***. Chronoamperometry with 1 mM solution.
 
-
-
 In the case of the following sample, the results are satisfactory, as can be seen in the following graph (see *Figure 10*).
 
-
+<p align="center">
+<a href="Docs/assets/imgs/excel_5mol.jpeg">
+<img src="Docs/assets/imgs/excel_5mol.jpeg" alt="5mM results" width=600/>
+</a>
+</p>
 
 ***Figure 10***. Chronoamperometry with 5 mM dilution
 
@@ -190,6 +223,19 @@ The potentiostat is an instrument widely used in electrochemical experiments and
 
 Considering that the rest of the practices were about different aspects of programming a microcontroller individually and this practice integrates most of them, this project has presented several difficulties and complications. Especially when creating different code files for each of the features and running them together and also when using GitHub to access and modify the files shared with the partner.
 
+Regarding the subject, we believe that the knowledge we have learnt will be very useful for our professional career, especially those related to the use of Git and GitHub to carry out code projects with future colleagues. In addition, it is also useful to have had this first contact with microcontroller programming which, despite our level of programming not being very advanced, has allowed us to introduce us to this useful area in order to enter the field of medical sensors. 
+
 
 
 ## References
+
+[1] [https://es.wikipedia.org/wiki/Potenciostato](https://www.google.com/url?q=https://es.wikipedia.org/wiki/Potenciostato&sa=D&source=editors&ust=1624208705621000&usg=AOvVaw05UpdH_ahg-zy-24YGOW2n)
+
+[2] [https://github.com/Biomedical-Electronics/masb-pot-s-bm](https://www.google.com/url?q=https://github.com/Biomedical-Electronics/masb-pot-s-bm&sa=D&source=editors&ust=1624208714921000&usg=AOvVaw0hWntd790pF9gZvt45flmM)
+
+[3] [https://es.wikipedia.org/wiki/Voltamperometr%C3%ADa#Sistema_de_tres_electrodos](https://www.google.com/url?q=https://es.wikipedia.org/wiki/Voltamperometr%C3%ADa%23Sistema_de_tres_electrodos&sa=D&source=editors&ust=1624211407232000&usg=AOvVaw0lqDA2zvza8hxYA-c0lx4b)
+
+[4] [https://upcommons.upc.edu/bitstream/handle/2099.1/4861/06_Annexos.pdf?sequence=7&isAllowed=y](https://www.google.com/url?q=https://upcommons.upc.edu/bitstream/handle/2099.1/4861/06_Annexos.pdf?sequence%3D7%26isAllowed%3Dy&sa=D&source=editors&ust=1624211803222000&usg=AOvVaw1ESU1PXWi45ylYpIO4lmqh)
+
+[5] [https://openwebinars.net/blog/que-es-git-y-para-que-sirve/](https://www.google.com/url?q=https://openwebinars.net/blog/que-es-git-y-para-que-sirve/&sa=D&source=editors&ust=1624217383894000&usg=AOvVaw0EpRCnOOUK7OXn_9Q4WeWS)
+
